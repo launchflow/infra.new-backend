@@ -1,0 +1,28 @@
+[project]
+name = "infra-new-backend"
+version = "0.1.0"
+description = "infra.new backend"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "cloud-sql-python-connector[pg8000]>=1.15.0",
+    "fastapi[standard]>=0.115.6",
+    "pg8000>=1.31.2",
+    "propelauth-fastapi>=4.0.2",
+    "pydantic>=2.10.4",
+    "python-dotenv>=1.0.1",
+    "sqlmodel>=0.0.22",
+    "strawberry-graphql>=0.255.0",
+    "stripe>=11.4.0",
+    "svix>=1.44.0",
+]
+
+[tool.setuptools]
+py-modules = []
+
+[tool.uv]
+dev-dependencies = [
+    "aiofiles>=24.1.0",
+    "google-cloud-billing>=1.15.0",
+    "google-cloud-compute>=1.23.0",
+]
