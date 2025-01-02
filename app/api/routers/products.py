@@ -1,6 +1,6 @@
-from typing import Dict, Any, NewType
+from typing import NewType
 from fastapi import Depends
-from sqlmodel import Session, and_, select
+from sqlmodel import Session, and_, func, select
 import strawberry
 from strawberry.fastapi import GraphQLRouter
 import re
@@ -40,6 +40,7 @@ class ApiPrice:
     usd: str | None = None
     purchase_option: str | None = None
     unit: str | None = None
+    start_usage_amount: str | None = None
 
     @classmethod
     def from_storage(cls, price: Price) -> "ApiPrice":
@@ -47,6 +48,7 @@ class ApiPrice:
             usd=price.usd,
             purchase_option=price.purchase_option,
             unit=price.unit,
+            start_usage_amount=price.start_usage_amount,
         )
 
 
@@ -183,23 +185,6 @@ def str_to_regex(s: str) -> re.Pattern:
     )
 
 
-def transform_filter(filter: Dict[str, Any]) -> Dict[str, Any]:
-    transformed = {}
-    if not filter:
-        return transformed
-    for key, value in filter.items():
-        key_parts = key.split("_")
-        op = "$eq"
-        if key_parts[-1] == "regex":
-            op = "$regex"
-            value = str_to_regex(value)
-        elif value == "":
-            op = "$in"
-            value = ["", None]
-        transformed[key_parts[0]] = {op: value}
-    return transformed
-
-
 # async def convert_currencies(prices: List[Price]):
 #     cc = CurrencyConverter()
 #     for price in prices:
@@ -236,6 +221,23 @@ class Query:
             )
         if filter.region:
             where_clause = append_clause(where_clause, Product.region == filter.region)
+
+        for attribute_filter in filter.attribute_filters or []:
+            if attribute_filter.value:
+                where_clause = append_clause(
+                    where_clause,
+                    func.json_extract_path_text(
+                        Product.attributes, attribute_filter.key
+                    ).op("=")(attribute_filter.value),
+                )
+            if attribute_filter.value_regex:
+                cleaned_regex = attribute_filter.value_regex.strip("/").split("/")[0]
+                where_clause = append_clause(
+                    where_clause,
+                    func.json_extract_path_text(
+                        Product.attributes, attribute_filter.key
+                    ).op("~")(cleaned_regex),
+                )
 
         stmt = select(Product)
         if where_clause is not None:

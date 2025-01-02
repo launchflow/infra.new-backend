@@ -1,0 +1,1197 @@
+{
+  "format_version": "1.2",
+  "terraform_version": "1.7.2",
+  "planned_values": {
+    "outputs": { "db_connection_info": { "sensitive": true } },
+    "root_module": {
+      "child_modules": [
+        {
+          "resources": [
+            {
+              "address": "module.database.google_project_service.servicenetworking_api",
+              "mode": "managed",
+              "type": "google_project_service",
+              "name": "servicenetworking_api",
+              "provider_name": "registry.opentofu.org/hashicorp/google",
+              "schema_version": 0,
+              "values": {
+                "disable_dependent_services": null,
+                "disable_on_destroy": false,
+                "project": "infra-new-dev",
+                "service": "sqladmin.googleapis.com",
+                "timeouts": null
+              },
+              "sensitive_values": {}
+            },
+            {
+              "address": "module.database.google_sql_database.db",
+              "mode": "managed",
+              "type": "google_sql_database",
+              "name": "db",
+              "provider_name": "registry.opentofu.org/hashicorp/google",
+              "schema_version": 0,
+              "values": {
+                "deletion_policy": "DELETE",
+                "instance": "infra-new-instance",
+                "name": "infra-new-database",
+                "project": "infra-new-dev",
+                "timeouts": null
+              },
+              "sensitive_values": {}
+            },
+            {
+              "address": "module.database.google_sql_database_instance.instance",
+              "mode": "managed",
+              "type": "google_sql_database_instance",
+              "name": "instance",
+              "provider_name": "registry.opentofu.org/hashicorp/google",
+              "schema_version": 0,
+              "values": {
+                "clone": [],
+                "database_version": "POSTGRES_15",
+                "deletion_protection": true,
+                "name": "infra-new-instance",
+                "project": "infra-new-dev",
+                "region": "us-central1",
+                "restore_backup_context": [],
+                "root_password": null,
+                "settings": [
+                  {
+                    "activation_policy": "ALWAYS",
+                    "active_directory_config": [],
+                    "advanced_machine_features": [],
+                    "availability_type": "ZONAL",
+                    "collation": null,
+                    "database_flags": [],
+                    "deletion_protection_enabled": null,
+                    "deny_maintenance_period": [],
+                    "disk_autoresize": true,
+                    "disk_autoresize_limit": 0,
+                    "disk_type": "PD_SSD",
+                    "enable_dataplex_integration": null,
+                    "enable_google_ml_integration": null,
+                    "ip_configuration": [
+                      {
+                        "allocated_ip_range": null,
+                        "authorized_networks": [],
+                        "enable_private_path_for_google_cloud_services": null,
+                        "ipv4_enabled": true,
+                        "psc_config": [],
+                        "ssl_mode": "ENCRYPTED_ONLY"
+                      }
+                    ],
+                    "maintenance_window": [],
+                    "password_validation_policy": [],
+                    "pricing_plan": "PER_USE",
+                    "sql_server_audit_config": [],
+                    "tier": "db-custom-2-3840",
+                    "time_zone": null
+                  }
+                ],
+                "timeouts": null
+              },
+              "sensitive_values": {
+                "available_maintenance_versions": [],
+                "clone": [],
+                "ip_address": [],
+                "replica_configuration": [],
+                "replica_names": [],
+                "restore_backup_context": [],
+                "server_ca_cert": [],
+                "settings": [
+                  {
+                    "active_directory_config": [],
+                    "advanced_machine_features": [],
+                    "backup_configuration": [],
+                    "data_cache_config": [],
+                    "database_flags": [],
+                    "deny_maintenance_period": [],
+                    "insights_config": [],
+                    "ip_configuration": [
+                      { "authorized_networks": [], "psc_config": [] }
+                    ],
+                    "location_preference": [],
+                    "maintenance_window": [],
+                    "password_validation_policy": [],
+                    "sql_server_audit_config": [],
+                    "user_labels": {}
+                  }
+                ]
+              }
+            },
+            {
+              "address": "module.database.google_sql_ssl_cert.postgres_client_cert",
+              "mode": "managed",
+              "type": "google_sql_ssl_cert",
+              "name": "postgres_client_cert",
+              "provider_name": "registry.opentofu.org/hashicorp/google",
+              "schema_version": 1,
+              "values": {
+                "common_name": "postgres_common_name",
+                "instance": "infra-new-instance",
+                "project": "infra-new-dev",
+                "timeouts": null
+              },
+              "sensitive_values": {}
+            },
+            {
+              "address": "module.database.google_sql_user.user",
+              "mode": "managed",
+              "type": "google_sql_user",
+              "name": "user",
+              "provider_name": "registry.opentofu.org/hashicorp/google",
+              "schema_version": 1,
+              "values": {
+                "deletion_policy": null,
+                "instance": "infra-new-instance",
+                "name": "infa-new-user",
+                "password_policy": [],
+                "project": "infra-new-dev",
+                "timeouts": null,
+                "type": null
+              },
+              "sensitive_values": {
+                "password": true,
+                "password_policy": [],
+                "sql_server_user_details": []
+              }
+            },
+            {
+              "address": "module.database.random_password.password",
+              "mode": "managed",
+              "type": "random_password",
+              "name": "password",
+              "provider_name": "registry.opentofu.org/hashicorp/random",
+              "schema_version": 3,
+              "values": {
+                "keepers": null,
+                "length": 16,
+                "lower": true,
+                "min_lower": 0,
+                "min_numeric": 0,
+                "min_special": 0,
+                "min_upper": 0,
+                "number": true,
+                "numeric": true,
+                "override_special": null,
+                "special": false,
+                "upper": true
+              },
+              "sensitive_values": {}
+            }
+          ],
+          "address": "module.database"
+        },
+        {
+          "resources": [
+            {
+              "address": "module.gcp_project.data.google_compute_network.default",
+              "mode": "data",
+              "type": "google_compute_network",
+              "name": "default",
+              "provider_name": "registry.opentofu.org/hashicorp/google",
+              "schema_version": 0,
+              "values": { "name": "default", "project": "infra-new-dev" },
+              "sensitive_values": { "subnetworks_self_links": [] }
+            },
+            {
+              "address": "module.gcp_project.google_compute_global_address.private_ip_address",
+              "mode": "managed",
+              "type": "google_compute_global_address",
+              "name": "private_ip_address",
+              "provider_name": "registry.opentofu.org/hashicorp/google",
+              "schema_version": 0,
+              "values": {
+                "address_type": "INTERNAL",
+                "description": null,
+                "effective_labels": { "goog-terraform-provisioned": "true" },
+                "ip_version": null,
+                "labels": null,
+                "name": "private-ip-address",
+                "prefix_length": 16,
+                "project": "infra-new-dev",
+                "purpose": "VPC_PEERING",
+                "terraform_labels": { "goog-terraform-provisioned": "true" },
+                "timeouts": null
+              },
+              "sensitive_values": {
+                "effective_labels": {},
+                "terraform_labels": {}
+              }
+            },
+            {
+              "address": "module.gcp_project.google_project.gcp_project",
+              "mode": "managed",
+              "type": "google_project",
+              "name": "gcp_project",
+              "provider_name": "registry.opentofu.org/hashicorp/google",
+              "schema_version": 1,
+              "values": {
+                "auto_create_network": true,
+                "billing_account": "011071-509348-EB6D37",
+                "deletion_policy": "PREVENT",
+                "effective_labels": { "goog-terraform-provisioned": "true" },
+                "folder_id": null,
+                "labels": null,
+                "name": "infra-new-dev",
+                "org_id": "5511490855",
+                "project_id": "infra-new-dev",
+                "tags": null,
+                "terraform_labels": { "goog-terraform-provisioned": "true" },
+                "timeouts": null
+              },
+              "sensitive_values": {
+                "effective_labels": {},
+                "terraform_labels": {}
+              }
+            },
+            {
+              "address": "module.gcp_project.google_project_service.compute_api",
+              "mode": "managed",
+              "type": "google_project_service",
+              "name": "compute_api",
+              "provider_name": "registry.opentofu.org/hashicorp/google",
+              "schema_version": 0,
+              "values": {
+                "disable_dependent_services": null,
+                "disable_on_destroy": false,
+                "project": "infra-new-dev",
+                "service": "compute.googleapis.com",
+                "timeouts": null
+              },
+              "sensitive_values": {}
+            },
+            {
+              "address": "module.gcp_project.google_project_service.servicenetworking_api",
+              "mode": "managed",
+              "type": "google_project_service",
+              "name": "servicenetworking_api",
+              "provider_name": "registry.opentofu.org/hashicorp/google",
+              "schema_version": 0,
+              "values": {
+                "disable_dependent_services": null,
+                "disable_on_destroy": false,
+                "project": "infra-new-dev",
+                "service": "servicenetworking.googleapis.com",
+                "timeouts": null
+              },
+              "sensitive_values": {}
+            },
+            {
+              "address": "module.gcp_project.google_service_networking_connection.default",
+              "mode": "managed",
+              "type": "google_service_networking_connection",
+              "name": "default",
+              "provider_name": "registry.opentofu.org/hashicorp/google",
+              "schema_version": 0,
+              "values": {
+                "deletion_policy": null,
+                "reserved_peering_ranges": ["private-ip-address"],
+                "service": "servicenetworking.googleapis.com",
+                "timeouts": null,
+                "update_on_creation_fail": null
+              },
+              "sensitive_values": { "reserved_peering_ranges": [false] }
+            }
+          ],
+          "address": "module.gcp_project"
+        }
+      ]
+    }
+  },
+  "resource_changes": [
+    {
+      "address": "module.database.google_project_service.servicenetworking_api",
+      "module_address": "module.database",
+      "mode": "managed",
+      "type": "google_project_service",
+      "name": "servicenetworking_api",
+      "provider_name": "registry.opentofu.org/hashicorp/google",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "disable_dependent_services": null,
+          "disable_on_destroy": false,
+          "project": "infra-new-dev",
+          "service": "sqladmin.googleapis.com",
+          "timeouts": null
+        },
+        "after_unknown": { "id": true },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "module.database.google_sql_database.db",
+      "module_address": "module.database",
+      "mode": "managed",
+      "type": "google_sql_database",
+      "name": "db",
+      "provider_name": "registry.opentofu.org/hashicorp/google",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "deletion_policy": "DELETE",
+          "instance": "infra-new-instance",
+          "name": "infra-new-database",
+          "project": "infra-new-dev",
+          "timeouts": null
+        },
+        "after_unknown": {
+          "charset": true,
+          "collation": true,
+          "id": true,
+          "self_link": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "module.database.google_sql_database_instance.instance",
+      "module_address": "module.database",
+      "mode": "managed",
+      "type": "google_sql_database_instance",
+      "name": "instance",
+      "provider_name": "registry.opentofu.org/hashicorp/google",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "clone": [],
+          "database_version": "POSTGRES_15",
+          "deletion_protection": true,
+          "name": "infra-new-instance",
+          "project": "infra-new-dev",
+          "region": "us-central1",
+          "restore_backup_context": [],
+          "root_password": null,
+          "settings": [
+            {
+              "activation_policy": "ALWAYS",
+              "active_directory_config": [],
+              "advanced_machine_features": [],
+              "availability_type": "ZONAL",
+              "collation": null,
+              "database_flags": [],
+              "deletion_protection_enabled": null,
+              "deny_maintenance_period": [],
+              "disk_autoresize": true,
+              "disk_autoresize_limit": 0,
+              "disk_type": "PD_SSD",
+              "enable_dataplex_integration": null,
+              "enable_google_ml_integration": null,
+              "ip_configuration": [
+                {
+                  "allocated_ip_range": null,
+                  "authorized_networks": [],
+                  "enable_private_path_for_google_cloud_services": null,
+                  "ipv4_enabled": true,
+                  "psc_config": [],
+                  "ssl_mode": "ENCRYPTED_ONLY"
+                }
+              ],
+              "maintenance_window": [],
+              "password_validation_policy": [],
+              "pricing_plan": "PER_USE",
+              "sql_server_audit_config": [],
+              "tier": "db-custom-2-3840",
+              "time_zone": null
+            }
+          ],
+          "timeouts": null
+        },
+        "after_unknown": {
+          "available_maintenance_versions": true,
+          "clone": [],
+          "connection_name": true,
+          "dns_name": true,
+          "encryption_key_name": true,
+          "first_ip_address": true,
+          "id": true,
+          "instance_type": true,
+          "ip_address": true,
+          "maintenance_version": true,
+          "master_instance_name": true,
+          "private_ip_address": true,
+          "psc_service_attachment_link": true,
+          "public_ip_address": true,
+          "replica_configuration": true,
+          "replica_names": true,
+          "restore_backup_context": [],
+          "self_link": true,
+          "server_ca_cert": true,
+          "service_account_email_address": true,
+          "settings": [
+            {
+              "active_directory_config": [],
+              "advanced_machine_features": [],
+              "backup_configuration": true,
+              "connector_enforcement": true,
+              "data_cache_config": true,
+              "database_flags": [],
+              "deny_maintenance_period": [],
+              "disk_size": true,
+              "edition": true,
+              "insights_config": true,
+              "ip_configuration": [
+                {
+                  "authorized_networks": [],
+                  "private_network": true,
+                  "psc_config": [],
+                  "server_ca_mode": true
+                }
+              ],
+              "location_preference": true,
+              "maintenance_window": [],
+              "password_validation_policy": [],
+              "sql_server_audit_config": [],
+              "user_labels": true,
+              "version": true
+            }
+          ]
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "available_maintenance_versions": [],
+          "clone": [],
+          "ip_address": [],
+          "replica_configuration": [],
+          "replica_names": [],
+          "restore_backup_context": [],
+          "root_password": true,
+          "server_ca_cert": true,
+          "settings": [
+            {
+              "active_directory_config": [],
+              "advanced_machine_features": [],
+              "backup_configuration": [],
+              "data_cache_config": [],
+              "database_flags": [],
+              "deny_maintenance_period": [],
+              "insights_config": [],
+              "ip_configuration": [
+                { "authorized_networks": [], "psc_config": [] }
+              ],
+              "location_preference": [],
+              "maintenance_window": [],
+              "password_validation_policy": [],
+              "sql_server_audit_config": [],
+              "user_labels": {}
+            }
+          ]
+        }
+      }
+    },
+    {
+      "address": "module.database.google_sql_ssl_cert.postgres_client_cert",
+      "module_address": "module.database",
+      "mode": "managed",
+      "type": "google_sql_ssl_cert",
+      "name": "postgres_client_cert",
+      "provider_name": "registry.opentofu.org/hashicorp/google",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "common_name": "postgres_common_name",
+          "instance": "infra-new-instance",
+          "project": "infra-new-dev",
+          "timeouts": null
+        },
+        "after_unknown": {
+          "cert": true,
+          "cert_serial_number": true,
+          "create_time": true,
+          "expiration_time": true,
+          "id": true,
+          "private_key": true,
+          "server_ca_cert": true,
+          "sha1_fingerprint": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "cert": true,
+          "private_key": true,
+          "server_ca_cert": true
+        }
+      }
+    },
+    {
+      "address": "module.database.google_sql_user.user",
+      "module_address": "module.database",
+      "mode": "managed",
+      "type": "google_sql_user",
+      "name": "user",
+      "provider_name": "registry.opentofu.org/hashicorp/google",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "deletion_policy": null,
+          "instance": "infra-new-instance",
+          "name": "infa-new-user",
+          "password_policy": [],
+          "project": "infra-new-dev",
+          "timeouts": null,
+          "type": null
+        },
+        "after_unknown": {
+          "host": true,
+          "id": true,
+          "password": true,
+          "password_policy": [],
+          "sql_server_user_details": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": {
+          "password": true,
+          "password_policy": [],
+          "sql_server_user_details": []
+        }
+      }
+    },
+    {
+      "address": "module.database.random_password.password",
+      "module_address": "module.database",
+      "mode": "managed",
+      "type": "random_password",
+      "name": "password",
+      "provider_name": "registry.opentofu.org/hashicorp/random",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "keepers": null,
+          "length": 16,
+          "lower": true,
+          "min_lower": 0,
+          "min_numeric": 0,
+          "min_special": 0,
+          "min_upper": 0,
+          "number": true,
+          "numeric": true,
+          "override_special": null,
+          "special": false,
+          "upper": true
+        },
+        "after_unknown": { "bcrypt_hash": true, "id": true, "result": true },
+        "before_sensitive": false,
+        "after_sensitive": { "bcrypt_hash": true, "result": true }
+      }
+    },
+    {
+      "address": "module.gcp_project.data.google_compute_network.default",
+      "module_address": "module.gcp_project",
+      "mode": "data",
+      "type": "google_compute_network",
+      "name": "default",
+      "provider_name": "registry.opentofu.org/hashicorp/google",
+      "change": {
+        "actions": ["read"],
+        "before": null,
+        "after": { "name": "default", "project": "infra-new-dev" },
+        "after_unknown": {
+          "description": true,
+          "gateway_ipv4": true,
+          "id": true,
+          "internal_ipv6_range": true,
+          "numeric_id": true,
+          "self_link": true,
+          "subnetworks_self_links": true
+        },
+        "before_sensitive": false,
+        "after_sensitive": { "subnetworks_self_links": [] }
+      },
+      "action_reason": "read_because_dependency_pending"
+    },
+    {
+      "address": "module.gcp_project.google_compute_global_address.private_ip_address",
+      "module_address": "module.gcp_project",
+      "mode": "managed",
+      "type": "google_compute_global_address",
+      "name": "private_ip_address",
+      "provider_name": "registry.opentofu.org/hashicorp/google",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "address_type": "INTERNAL",
+          "description": null,
+          "effective_labels": { "goog-terraform-provisioned": "true" },
+          "ip_version": null,
+          "labels": null,
+          "name": "private-ip-address",
+          "prefix_length": 16,
+          "project": "infra-new-dev",
+          "purpose": "VPC_PEERING",
+          "terraform_labels": { "goog-terraform-provisioned": "true" },
+          "timeouts": null
+        },
+        "after_unknown": {
+          "address": true,
+          "creation_timestamp": true,
+          "effective_labels": {},
+          "id": true,
+          "label_fingerprint": true,
+          "network": true,
+          "self_link": true,
+          "terraform_labels": {}
+        },
+        "before_sensitive": false,
+        "after_sensitive": { "effective_labels": {}, "terraform_labels": {} }
+      }
+    },
+    {
+      "address": "module.gcp_project.google_project.gcp_project",
+      "module_address": "module.gcp_project",
+      "mode": "managed",
+      "type": "google_project",
+      "name": "gcp_project",
+      "provider_name": "registry.opentofu.org/hashicorp/google",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "auto_create_network": true,
+          "billing_account": "011071-509348-EB6D37",
+          "deletion_policy": "PREVENT",
+          "effective_labels": { "goog-terraform-provisioned": "true" },
+          "folder_id": null,
+          "labels": null,
+          "name": "infra-new-dev",
+          "org_id": "5511490855",
+          "project_id": "infra-new-dev",
+          "tags": null,
+          "terraform_labels": { "goog-terraform-provisioned": "true" },
+          "timeouts": null
+        },
+        "after_unknown": {
+          "effective_labels": {},
+          "id": true,
+          "number": true,
+          "terraform_labels": {}
+        },
+        "before_sensitive": false,
+        "after_sensitive": { "effective_labels": {}, "terraform_labels": {} }
+      }
+    },
+    {
+      "address": "module.gcp_project.google_project_service.compute_api",
+      "module_address": "module.gcp_project",
+      "mode": "managed",
+      "type": "google_project_service",
+      "name": "compute_api",
+      "provider_name": "registry.opentofu.org/hashicorp/google",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "disable_dependent_services": null,
+          "disable_on_destroy": false,
+          "project": "infra-new-dev",
+          "service": "compute.googleapis.com",
+          "timeouts": null
+        },
+        "after_unknown": { "id": true },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "module.gcp_project.google_project_service.servicenetworking_api",
+      "module_address": "module.gcp_project",
+      "mode": "managed",
+      "type": "google_project_service",
+      "name": "servicenetworking_api",
+      "provider_name": "registry.opentofu.org/hashicorp/google",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "disable_dependent_services": null,
+          "disable_on_destroy": false,
+          "project": "infra-new-dev",
+          "service": "servicenetworking.googleapis.com",
+          "timeouts": null
+        },
+        "after_unknown": { "id": true },
+        "before_sensitive": false,
+        "after_sensitive": {}
+      }
+    },
+    {
+      "address": "module.gcp_project.google_service_networking_connection.default",
+      "module_address": "module.gcp_project",
+      "mode": "managed",
+      "type": "google_service_networking_connection",
+      "name": "default",
+      "provider_name": "registry.opentofu.org/hashicorp/google",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "deletion_policy": null,
+          "reserved_peering_ranges": ["private-ip-address"],
+          "service": "servicenetworking.googleapis.com",
+          "timeouts": null,
+          "update_on_creation_fail": null
+        },
+        "after_unknown": {
+          "id": true,
+          "network": true,
+          "peering": true,
+          "reserved_peering_ranges": [false]
+        },
+        "before_sensitive": false,
+        "after_sensitive": { "reserved_peering_ranges": [false] }
+      }
+    }
+  ],
+  "output_changes": {
+    "db_connection_info": {
+      "actions": ["create"],
+      "before": null,
+      "after": { "username": "infa-new-user" },
+      "after_unknown": {
+        "client_cert": true,
+        "client_key": true,
+        "instance_connection_name": true,
+        "password": true,
+        "server_cert": true
+      },
+      "before_sensitive": true,
+      "after_sensitive": true
+    }
+  },
+  "configuration": {
+    "provider_config": {
+      "module.database:google": {
+        "name": "google",
+        "full_name": "registry.opentofu.org/hashicorp/google",
+        "module_address": "module.database"
+      },
+      "module.database:random": {
+        "name": "random",
+        "full_name": "registry.opentofu.org/hashicorp/random",
+        "module_address": "module.database"
+      },
+      "module.gcp_project:google": {
+        "name": "google",
+        "full_name": "registry.opentofu.org/hashicorp/google",
+        "module_address": "module.gcp_project"
+      }
+    },
+    "root_module": {
+      "outputs": {
+        "db_connection_info": {
+          "sensitive": true,
+          "expression": { "references": ["module.database"] }
+        }
+      },
+      "module_calls": {
+        "database": {
+          "source": "../modules/cloud_sql",
+          "expressions": {
+            "gcp_project_id": {
+              "references": [
+                "module.gcp_project.project_id",
+                "module.gcp_project"
+              ]
+            },
+            "private_network": {
+              "references": [
+                "module.gcp_project.default_network",
+                "module.gcp_project"
+              ]
+            },
+            "public_ip": { "constant_value": true }
+          },
+          "module": {
+            "outputs": {
+              "client_cert": {
+                "sensitive": true,
+                "expression": {
+                  "references": [
+                    "google_sql_ssl_cert.postgres_client_cert.cert",
+                    "google_sql_ssl_cert.postgres_client_cert"
+                  ]
+                }
+              },
+              "client_key": {
+                "sensitive": true,
+                "expression": {
+                  "references": [
+                    "google_sql_ssl_cert.postgres_client_cert.private_key",
+                    "google_sql_ssl_cert.postgres_client_cert"
+                  ]
+                }
+              },
+              "instance_connection_name": {
+                "expression": {
+                  "references": [
+                    "google_sql_database_instance.instance.connection_name",
+                    "google_sql_database_instance.instance"
+                  ]
+                }
+              },
+              "password": {
+                "sensitive": true,
+                "expression": {
+                  "references": [
+                    "random_password.password.result",
+                    "random_password.password"
+                  ]
+                }
+              },
+              "server_cert": {
+                "sensitive": true,
+                "expression": {
+                  "references": [
+                    "google_sql_database_instance.instance.server_ca_cert[0].cert",
+                    "google_sql_database_instance.instance.server_ca_cert[0]",
+                    "google_sql_database_instance.instance.server_ca_cert",
+                    "google_sql_database_instance.instance"
+                  ]
+                }
+              },
+              "username": {
+                "expression": {
+                  "references": [
+                    "google_sql_user.user.name",
+                    "google_sql_user.user"
+                  ]
+                }
+              }
+            },
+            "resources": [
+              {
+                "address": "google_project_service.servicenetworking_api",
+                "mode": "managed",
+                "type": "google_project_service",
+                "name": "servicenetworking_api",
+                "provider_config_key": "module.database:google",
+                "expressions": {
+                  "disable_on_destroy": { "constant_value": false },
+                  "project": { "references": ["var.gcp_project_id"] },
+                  "service": { "constant_value": "sqladmin.googleapis.com" }
+                },
+                "schema_version": 0
+              },
+              {
+                "address": "google_sql_database.db",
+                "mode": "managed",
+                "type": "google_sql_database",
+                "name": "db",
+                "provider_config_key": "module.database:google",
+                "expressions": {
+                  "instance": {
+                    "references": [
+                      "google_sql_database_instance.instance.name",
+                      "google_sql_database_instance.instance"
+                    ]
+                  },
+                  "name": { "constant_value": "infra-new-database" },
+                  "project": { "references": ["var.gcp_project_id"] }
+                },
+                "schema_version": 0
+              },
+              {
+                "address": "google_sql_database_instance.instance",
+                "mode": "managed",
+                "type": "google_sql_database_instance",
+                "name": "instance",
+                "provider_config_key": "module.database:google",
+                "expressions": {
+                  "database_version": { "constant_value": "POSTGRES_15" },
+                  "name": { "constant_value": "infra-new-instance" },
+                  "project": { "references": ["var.gcp_project_id"] },
+                  "region": { "constant_value": "us-central1" },
+                  "settings": [
+                    {
+                      "ip_configuration": [
+                        {
+                          "ipv4_enabled": { "constant_value": true },
+                          "private_network": {
+                            "references": ["var.private_network"]
+                          },
+                          "ssl_mode": { "constant_value": "ENCRYPTED_ONLY" }
+                        }
+                      ],
+                      "tier": { "constant_value": "db-custom-2-3840" }
+                    }
+                  ]
+                },
+                "schema_version": 0
+              },
+              {
+                "address": "google_sql_ssl_cert.postgres_client_cert",
+                "mode": "managed",
+                "type": "google_sql_ssl_cert",
+                "name": "postgres_client_cert",
+                "provider_config_key": "module.database:google",
+                "expressions": {
+                  "common_name": { "constant_value": "postgres_common_name" },
+                  "instance": {
+                    "references": [
+                      "google_sql_database_instance.instance.name",
+                      "google_sql_database_instance.instance"
+                    ]
+                  },
+                  "project": { "references": ["var.gcp_project_id"] }
+                },
+                "schema_version": 1
+              },
+              {
+                "address": "google_sql_user.user",
+                "mode": "managed",
+                "type": "google_sql_user",
+                "name": "user",
+                "provider_config_key": "module.database:google",
+                "expressions": {
+                  "instance": {
+                    "references": [
+                      "google_sql_database_instance.instance.name",
+                      "google_sql_database_instance.instance"
+                    ]
+                  },
+                  "name": { "constant_value": "infa-new-user" },
+                  "password": {
+                    "references": [
+                      "random_password.password.result",
+                      "random_password.password"
+                    ]
+                  },
+                  "project": { "references": ["var.gcp_project_id"] }
+                },
+                "schema_version": 1
+              },
+              {
+                "address": "random_password.password",
+                "mode": "managed",
+                "type": "random_password",
+                "name": "password",
+                "provider_config_key": "module.database:random",
+                "expressions": {
+                  "length": { "constant_value": 16 },
+                  "special": { "constant_value": false }
+                },
+                "schema_version": 3
+              }
+            ],
+            "variables": {
+              "gcp_project_id": {},
+              "private_network": {},
+              "public_ip": {}
+            }
+          },
+          "depends_on": ["module.gcp_project"]
+        },
+        "gcp_project": {
+          "source": "../modules/gcp_project",
+          "expressions": {
+            "project_id": { "constant_value": "infra-new-dev" },
+            "project_name": { "constant_value": "infra-new-dev" }
+          },
+          "module": {
+            "outputs": {
+              "default_network": {
+                "expression": {
+                  "references": [
+                    "data.google_compute_network.default.self_link",
+                    "data.google_compute_network.default"
+                  ]
+                }
+              },
+              "project_id": {
+                "expression": {
+                  "references": [
+                    "google_project.gcp_project.project_id",
+                    "google_project.gcp_project"
+                  ]
+                }
+              }
+            },
+            "resources": [
+              {
+                "address": "google_compute_global_address.private_ip_address",
+                "mode": "managed",
+                "type": "google_compute_global_address",
+                "name": "private_ip_address",
+                "provider_config_key": "module.gcp_project:google",
+                "expressions": {
+                  "address_type": { "constant_value": "INTERNAL" },
+                  "name": { "constant_value": "private-ip-address" },
+                  "network": {
+                    "references": [
+                      "data.google_compute_network.default.id",
+                      "data.google_compute_network.default"
+                    ]
+                  },
+                  "prefix_length": { "constant_value": 16 },
+                  "project": {
+                    "references": [
+                      "google_project.gcp_project.project_id",
+                      "google_project.gcp_project"
+                    ]
+                  },
+                  "purpose": { "constant_value": "VPC_PEERING" }
+                },
+                "schema_version": 0,
+                "depends_on": ["google_project_service.servicenetworking_api"]
+              },
+              {
+                "address": "google_project.gcp_project",
+                "mode": "managed",
+                "type": "google_project",
+                "name": "gcp_project",
+                "provider_config_key": "module.gcp_project:google",
+                "expressions": {
+                  "billing_account": {
+                    "constant_value": "011071-509348-EB6D37"
+                  },
+                  "name": { "references": ["var.project_name"] },
+                  "org_id": { "constant_value": "5511490855" },
+                  "project_id": { "references": ["var.project_id"] }
+                },
+                "schema_version": 1
+              },
+              {
+                "address": "google_project_service.compute_api",
+                "mode": "managed",
+                "type": "google_project_service",
+                "name": "compute_api",
+                "provider_config_key": "module.gcp_project:google",
+                "expressions": {
+                  "disable_on_destroy": { "constant_value": false },
+                  "project": {
+                    "references": [
+                      "google_project.gcp_project.project_id",
+                      "google_project.gcp_project"
+                    ]
+                  },
+                  "service": { "constant_value": "compute.googleapis.com" }
+                },
+                "schema_version": 0
+              },
+              {
+                "address": "google_project_service.servicenetworking_api",
+                "mode": "managed",
+                "type": "google_project_service",
+                "name": "servicenetworking_api",
+                "provider_config_key": "module.gcp_project:google",
+                "expressions": {
+                  "disable_on_destroy": { "constant_value": false },
+                  "project": {
+                    "references": [
+                      "google_project.gcp_project.project_id",
+                      "google_project.gcp_project"
+                    ]
+                  },
+                  "service": {
+                    "constant_value": "servicenetworking.googleapis.com"
+                  }
+                },
+                "schema_version": 0
+              },
+              {
+                "address": "google_service_networking_connection.default",
+                "mode": "managed",
+                "type": "google_service_networking_connection",
+                "name": "default",
+                "provider_config_key": "module.gcp_project:google",
+                "expressions": {
+                  "network": {
+                    "references": [
+                      "data.google_compute_network.default.id",
+                      "data.google_compute_network.default"
+                    ]
+                  },
+                  "reserved_peering_ranges": {
+                    "references": [
+                      "google_compute_global_address.private_ip_address.name",
+                      "google_compute_global_address.private_ip_address"
+                    ]
+                  },
+                  "service": {
+                    "constant_value": "servicenetworking.googleapis.com"
+                  }
+                },
+                "schema_version": 0
+              },
+              {
+                "address": "data.google_compute_network.default",
+                "mode": "data",
+                "type": "google_compute_network",
+                "name": "default",
+                "provider_config_key": "module.gcp_project:google",
+                "expressions": {
+                  "name": { "constant_value": "default" },
+                  "project": {
+                    "references": [
+                      "google_project.gcp_project.project_id",
+                      "google_project.gcp_project"
+                    ]
+                  }
+                },
+                "schema_version": 0,
+                "depends_on": ["google_project_service.compute_api"]
+              }
+            ],
+            "variables": { "project_id": {}, "project_name": {} }
+          }
+        }
+      }
+    }
+  },
+  "relevant_attributes": [
+    {
+      "resource": "module.database.google_sql_database_instance.instance",
+      "attribute": ["name"]
+    },
+    {
+      "resource": "module.database.google_sql_database_instance.instance",
+      "attribute": ["connection_name"]
+    },
+    {
+      "resource": "module.database.google_sql_database_instance.instance",
+      "attribute": ["server_ca_cert", 0, "cert"]
+    },
+    {
+      "resource": "module.database.google_sql_ssl_cert.postgres_client_cert",
+      "attribute": ["private_key"]
+    },
+    {
+      "resource": "module.database.google_sql_ssl_cert.postgres_client_cert",
+      "attribute": ["cert"]
+    },
+    {
+      "resource": "module.database.google_sql_user.user",
+      "attribute": ["name"]
+    },
+    {
+      "resource": "module.database.random_password.password",
+      "attribute": ["result"]
+    },
+    {
+      "resource": "module.gcp_project.data.google_compute_network.default",
+      "attribute": ["self_link"]
+    },
+    {
+      "resource": "module.gcp_project.data.google_compute_network.default",
+      "attribute": ["id"]
+    },
+    {
+      "resource": "module.gcp_project.google_compute_global_address.private_ip_address",
+      "attribute": ["name"]
+    },
+    {
+      "resource": "module.gcp_project.google_project.gcp_project",
+      "attribute": ["project_id"]
+    }
+  ],
+  "timestamp": "2024-12-21T14:47:29Z",
+  "errored": false
+}

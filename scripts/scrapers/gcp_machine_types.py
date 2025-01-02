@@ -1,6 +1,5 @@
 from datetime import datetime
 import hashlib
-from platform import machine
 import re
 from typing import Dict, Literal, Tuple
 
